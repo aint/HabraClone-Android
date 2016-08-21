@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">HabraCloneAndroid</string>
+    <string name="app_name">HabraClone Android</string>
+    <string name="article_top_menu">Top</string>
+
+    <array name="article_sort_spinner">
+        <item>Top</item>
+        <item>New</item>
+    </array>
+
 </resources>

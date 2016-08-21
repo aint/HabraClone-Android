@@ -52,4 +52,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setCustomView(
+                LayoutInflater.from(this).inflate(R.layout.actionbar, null),
+                new ActionBar.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        );
+    }
+
 }
