@@ -1,6 +1,7 @@
 package com.github.aint.habraclone.android;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,16 @@ public class ArticleArrayAdapter extends ArrayAdapter<Article> {
         ((TextView) convertView.findViewById(R.id.article_title_label)).setText(articles.get(position).getTitle());
         ((TextView) convertView.findViewById(R.id.article_hub_label)).setText(articles.get(position).getHubName());
 
-        ((TextView) convertView.findViewById(R.id.article_rating_label)).setText(String.valueOf(articles.get(position).getRating()));
+        setArticleRating();
         ((TextView) convertView.findViewById(R.id.article_views_label)).setText(String.valueOf(articles.get(position).getViews()));
         ((TextView) convertView.findViewById(R.id.article_comments_label)).setText(String.valueOf(articles.get(position).getFavorites()));
+    }
+
+    private void setArticleRating() {
+        TextView ratingTextView = (TextView) convertView.findViewById(R.id.article_rating_label);
+        int rating = articles.get(position).getRating();
+        ratingTextView.setText(rating >= 0 ? "+" + rating : "-" + rating);
+        ratingTextView.setTextColor(rating >= 0 ? Color.GREEN : Color.RED);
     }
 
 }
