@@ -1,8 +1,10 @@
 package com.github.aint.habraclone.android.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,6 +12,8 @@ import com.github.aint.habraclone.android.R;
 import com.github.aint.habraclone.android.model.Article;
 
 public class DisplayArticleActivity extends AppCompatActivity {
+
+    public static final String ARTICLE_ID_ATTRIBUTE = "article_id";
 
     private Article article;
 
@@ -40,4 +44,8 @@ public class DisplayArticleActivity extends AppCompatActivity {
         ratingButton.setTextColor(rating >= 0 ? Color.GREEN : Color.RED);
     }
 
+    public void onCommentsButtonClick(View view) {
+        startActivity(new Intent(this, DisplayCommentsActivity.class)
+                .putExtra(ARTICLE_ID_ATTRIBUTE, article.getId()));
+    }
 }

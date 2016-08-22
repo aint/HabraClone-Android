@@ -117,7 +117,7 @@
         android:drawablePadding="-13sp"
         android:paddingLeft="23dp"
         android:text="33"
-        android:onClick=""
+        android:onClick="onCommentsButtonClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 
