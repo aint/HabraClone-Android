@@ -1,10 +1,13 @@
 package com.github.aint.habraclone.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,9 +27,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final String TAG = MainActivity.class.getName();
+
+    public static final String ARTICLE_ATTRIBUTE = "article";
 
     private static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
 
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setupActionBar();
 
         listView = ((ListView) findViewById(R.id.article_list_view));
+        listView.setOnItemClickListener(this);
 
         setUpListView();
     }
@@ -84,4 +90,9 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(this, DisplayArticleActivity.class)
+                .putExtra(ARTICLE_ATTRIBUTE, (Article) parent.getItemAtPosition(position)));
+    }
 }

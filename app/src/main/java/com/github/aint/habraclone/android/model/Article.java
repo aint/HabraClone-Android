@@ -1,6 +1,8 @@
 package com.github.aint.habraclone.android.model;
 
-public class Article {
+import java.io.Serializable;
+
+public class Article implements Serializable {
 
     private long id;
     private String title;

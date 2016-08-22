@@ -7,4 +7,6 @@
         <item>New</item>
     </array>
 
+    <string name="title_activity_display_article">Publication</string>
+
 </resources>
