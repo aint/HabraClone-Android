@@ -2,6 +2,7 @@ package com.github.aint.habraclone.android;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.github.aint.habraclone.android.model.Comment;
 
+import java.util.Date;
 import java.util.List;
 
 public class CommentArrayAdapter extends ArrayAdapter<Comment> {
@@ -30,30 +32,34 @@ public class CommentArrayAdapter extends ArrayAdapter<Comment> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listview_article_layout, parent, false);
-
-            this.position = position;
-            this.convertView = convertView;
-
-            setUpArticleView();
+            convertView = inflater.inflate(R.layout.listview_comment_layout, parent, false);
         }
+        this.position = position;
+        this.convertView = convertView;
+
+        setUpArticleView();
+
         return convertView;
     }
 
     private void setUpArticleView() {
-        ((TextView) convertView.findViewById(R.id.comment_author_label)).setText(comments.get(position).getAuthor());
-        ((TextView) convertView.findViewById(R.id.comment_date_label)).setText(String.valueOf(comments.get(position).getCreationDate()));
-
+        setCreationDate();
         setCommentRating();
 
+        ((TextView) convertView.findViewById(R.id.comment_author_label)).setText(comments.get(position).getAuthor());
         ((TextView) convertView.findViewById(R.id.comment_body_label)).setText(comments.get(position).getBody());
+    }
+
+    private void setCreationDate() {
+        ((TextView) convertView.findViewById(R.id.comment_date_label)).setText(
+                DateFormat.format("dd.MM.yyyy hh:mm", new Date(comments.get(position).getCreationDate())));
     }
 
     private void setCommentRating() {
         TextView ratingTextView = (TextView) convertView.findViewById(R.id.comment_rating_label);
         int rating = comments.get(position).getRating();
-        ratingTextView.setText(rating >= 0 ? "+" + rating : "-" + rating);
-        ratingTextView.setTextColor(rating >= 0 ? Color.GREEN : Color.RED);
+        ratingTextView.setText(rating > 0 ? "+" + rating : "" + rating);
+        ratingTextView.setTextColor(rating >= 0 ? (rating == 0 ? Color.LTGRAY : Color.GREEN) : Color.RED);
     }
 
 }

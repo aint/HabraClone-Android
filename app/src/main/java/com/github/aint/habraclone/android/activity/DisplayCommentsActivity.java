@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aint.habraclone.android.CommentArrayAdapter;
@@ -49,12 +50,21 @@ public class DisplayCommentsActivity extends AppCompatActivity {
         setUpListView();
     }
 
+    private void ifNoComments() {
+        if (listView.getAdapter().isEmpty()) {
+            TextView emptyTextView = ((TextView) findViewById(R.id.empty));
+            emptyTextView.setText(getResources().getText(R.string.no_comments_textview));
+            listView.setEmptyView(emptyTextView);
+        }
+    }
+
     private void setUpListView() {
         habraCloneService.getCommentsOfArticle(articleId).enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (response.isSuccessful()) {
                     listView.setAdapter(new CommentArrayAdapter(DisplayCommentsActivity.this, response.body()));
+                    ifNoComments();
                 } else {
                     Toast.makeText(DisplayCommentsActivity.this, OOPS_ERROR_TOAST + response.code(), Toast.LENGTH_LONG).show();
                 }

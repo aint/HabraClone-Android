@@ -89,7 +89,6 @@
         android:drawablePadding="-13sp"
         android:paddingLeft="17dp"
         android:text="+14"
-        android:onClick=""
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"/>
 

@@ -15,6 +15,7 @@ public class Article implements Serializable {
     private long creationDate;
     private String authorUsername;
     private String hubName;
+    private int commentCount;
 
     public Article() {
     }
@@ -105,5 +106,13 @@ public class Article implements Serializable {
 
     public void setHubName(String hubName) {
         this.hubName = hubName;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 }

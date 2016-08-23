@@ -9,5 +9,6 @@
 
     <string name="title_activity_display_article">Publication</string>
     <string name="title_activity_display_comments">Comments</string>
+    <string name="no_comments_textview">No comments yet</string>
 
 </resources>
