@@ -25,6 +25,10 @@
             android:name=".activity.DisplayCommentsActivity"
             android:label="@string/title_activity_display_comments">
         </activity>
+        <activity
+            android:name=".activity.DisplayUserActivity"
+            android:label="@string/title_activity_display_user">
+        </activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.github.aint.habraclone.android.service;
 
 import com.github.aint.habraclone.android.model.Article;
 import com.github.aint.habraclone.android.model.Comment;
+import com.github.aint.habraclone.android.model.User;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface HabraCloneService {
 
     @GET("articles/top")
     Call<List<Article>> getTopArticles();
+
+
+    @GET("users/{username}")
+    Call<User> getUser(@Path("username") String username);
 }

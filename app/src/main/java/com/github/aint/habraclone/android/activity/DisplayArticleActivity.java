@@ -56,4 +56,9 @@ public class DisplayArticleActivity extends AppCompatActivity {
         startActivity(new Intent(this, DisplayCommentsActivity.class)
                 .putExtra(ARTICLE_ID_ATTRIBUTE, article.getId()));
     }
+
+    public void onUsernameClick(View view) {
+        startActivity(new Intent(this, DisplayUserActivity.class)
+                .putExtra(MainActivity.USERNAME_ATTRIBUTE, article.getAuthorUsername()));
+    }
 }

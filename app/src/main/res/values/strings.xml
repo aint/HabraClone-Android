@@ -10,5 +10,12 @@
     <string name="title_activity_display_article">Publication</string>
     <string name="title_activity_display_comments">Comments</string>
     <string name="no_comments_textview">No comments yet</string>
+    <string name="title_activity_display_user">Profile</string>
+    <string name="user_karma">karma</string>
+    <string name="user_rating">rating</string>
+    <string name="user_position">position</string>
+    <string name="user_fullname">fullname</string>
+    <string name="user_email">email</string>
+    <string name="user_registration_date">registration date</string>
 
 </resources>

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String TAG = MainActivity.class.getName();
 
     public static final String ARTICLE_ATTRIBUTE = "article";
+    public static final String USERNAME_ATTRIBUTE = "username";
 
     private static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
 
