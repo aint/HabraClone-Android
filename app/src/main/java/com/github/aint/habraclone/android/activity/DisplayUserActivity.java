@@ -20,11 +20,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DisplayUserActivity extends AppCompatActivity {
+import static com.github.aint.habraclone.android.activity.MainActivity.DATE_PATTERN;
+import static com.github.aint.habraclone.android.activity.MainActivity.HABRA_CLONE_API_URL;
+
+public class DisplayUserActivity extends AppCompatActivity implements Callback<User> {
 
     private static final String TAG = DisplayUserActivity.class.getName();
-
-    private static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
 
     private static final String OOPS_ERROR_TOAST = "Oops... Error ";
 
@@ -35,35 +36,27 @@ public class DisplayUserActivity extends AppCompatActivity {
 
     private HabraCloneService habraCloneService = retrofit.create(HabraCloneService.class);
 
-    private String username;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
 
-        username = getIntent().getStringExtra(MainActivity.USERNAME_ATTRIBUTE);
-
-        setUpListView();
+        habraCloneService.getUser(getIntent().getStringExtra(MainActivity.USERNAME_ATTRIBUTE)).enqueue(this);
     }
 
-    private void setUpListView() {
-        habraCloneService.getUser(username).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    setUserView(response.body());
-                } else {
-                    Toast.makeText(DisplayUserActivity.this, OOPS_ERROR_TOAST + response.code(), Toast.LENGTH_LONG).show();
-                }
-            }
+    @Override
+    public void onResponse(Call<User> call, Response<User> response) {
+        if (response.isSuccessful()) {
+            setUserView(response.body());
+        } else {
+            Toast.makeText(DisplayUserActivity.this, OOPS_ERROR_TOAST + response.code(), Toast.LENGTH_LONG).show();
+        }
+    }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(DisplayUserActivity.this, OOPS_ERROR_TOAST + t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e(TAG, t.getMessage());
-            }
-        });
+    @Override
+    public void onFailure(Call<User> call, Throwable t) {
+        Toast.makeText(DisplayUserActivity.this, OOPS_ERROR_TOAST + t.getMessage(), Toast.LENGTH_LONG).show();
+        Log.e(TAG, t.getMessage());
     }
 
     private void setUserView(User user) {
@@ -73,7 +66,6 @@ public class DisplayUserActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.user_fullname)).setText(user.getFullName());
         ((TextView) findViewById(R.id.user_email)).setText(user.getEmail());
         ((TextView) findViewById(R.id.user_reg_date)).setText(
-                DateFormat.format("dd.MM.yyyy hh:mm", new Date(user.getRegistrationDate())));
+                DateFormat.format(DATE_PATTERN, new Date(user.getRegistrationDate())));
     }
-
 }

@@ -1,4 +1,4 @@
-package com.github.aint.habraclone.android;
+package com.github.aint.habraclone.android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.github.aint.habraclone.android.R;
 import com.github.aint.habraclone.android.model.Article;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.github.aint.habraclone.android.activity.MainActivity.DATE_PATTERN;
 
 public class ArticleArrayAdapter extends ArrayAdapter<Article> {
 
@@ -44,19 +47,18 @@ public class ArticleArrayAdapter extends ArrayAdapter<Article> {
 
     private void setUpArticleView() {
         setCreationDate();
-        ((TextView) convertView.findViewById(R.id.article_author_label)).setText(articles.get(position).getAuthorUsername());
+        setArticleRating();
 
+        ((TextView) convertView.findViewById(R.id.article_author_label)).setText(articles.get(position).getAuthorUsername());
         ((TextView) convertView.findViewById(R.id.article_title_label)).setText(articles.get(position).getTitle());
         ((TextView) convertView.findViewById(R.id.article_hub_label)).setText(articles.get(position).getHubName());
-
-        setArticleRating();
         ((TextView) convertView.findViewById(R.id.article_views_label)).setText(String.valueOf(articles.get(position).getViews()));
         ((TextView) convertView.findViewById(R.id.article_comments_label)).setText(String.valueOf(articles.get(position).getCommentCount()));
     }
 
     private void setCreationDate() {
         ((TextView) convertView.findViewById(R.id.article_date_label)).setText(
-                DateFormat.format("dd.MM.yyyy hh:mm", new Date(articles.get(position).getCreationDate())));
+                DateFormat.format(DATE_PATTERN, new Date(articles.get(position).getCreationDate())));
     }
 
     private void setArticleRating() {

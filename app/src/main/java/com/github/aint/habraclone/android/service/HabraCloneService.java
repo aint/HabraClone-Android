@@ -21,7 +21,6 @@ public interface HabraCloneService {
     @GET("articles/top")
     Call<List<Article>> getTopArticles();
 
-
     @GET("users/{username}")
     Call<User> getUser(@Path("username") String username);
 }

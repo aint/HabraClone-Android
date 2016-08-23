@@ -1,4 +1,4 @@
-package com.github.aint.habraclone.android;
+package com.github.aint.habraclone.android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.github.aint.habraclone.android.R;
 import com.github.aint.habraclone.android.model.Comment;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.github.aint.habraclone.android.activity.MainActivity.DATE_PATTERN;
 
 public class CommentArrayAdapter extends ArrayAdapter<Comment> {
 
@@ -52,7 +55,7 @@ public class CommentArrayAdapter extends ArrayAdapter<Comment> {
 
     private void setCreationDate() {
         ((TextView) convertView.findViewById(R.id.comment_date_label)).setText(
-                DateFormat.format("dd.MM.yyyy hh:mm", new Date(comments.get(position).getCreationDate())));
+                DateFormat.format(DATE_PATTERN, new Date(comments.get(position).getCreationDate())));
     }
 
     private void setCommentRating() {

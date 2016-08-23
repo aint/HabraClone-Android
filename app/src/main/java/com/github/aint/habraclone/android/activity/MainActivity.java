@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.github.aint.habraclone.android.ArticleArrayAdapter;
+import com.github.aint.habraclone.android.adapter.ArticleArrayAdapter;
 import com.github.aint.habraclone.android.R;
 import com.github.aint.habraclone.android.model.Article;
 import com.github.aint.habraclone.android.service.HabraCloneService;
@@ -26,15 +26,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.widget.AdapterView.*;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener, Callback<List<Article>> {
 
     private static final String TAG = MainActivity.class.getName();
 
+    public static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
+
+    public static final String DATE_PATTERN = "dd.MM.yyyy hh:mm";
     public static final String ARTICLE_ATTRIBUTE = "article";
     public static final String USERNAME_ATTRIBUTE = "username";
-
-    private static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
 
     private static final String OOPS_ERROR_TOAST = "Oops... Error ";
 
@@ -51,31 +53,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setupActionBar();
-
-        listView = ((ListView) findViewById(R.id.article_list_view));
-        listView.setOnItemClickListener(this);
-
         setUpListView();
     }
 
     private void setUpListView() {
-        habraCloneService.getTopArticles().enqueue(new Callback<List<Article>>() {
-            @Override
-            public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
-                if (response.isSuccessful()) {
-                    listView.setAdapter(new ArticleArrayAdapter(MainActivity.this, response.body()));
-                } else {
-                    Toast.makeText(MainActivity.this, OOPS_ERROR_TOAST + response.code(), Toast.LENGTH_LONG).show();
-                }
-            }
+        listView = ((ListView) findViewById(R.id.article_list_view));
+        listView.setOnItemClickListener(this);
+        habraCloneService.getTopArticles().enqueue(this);
+    }
 
-            @Override
-            public void onFailure(Call<List<Article>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, OOPS_ERROR_TOAST + t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e(TAG, t.getMessage());
-            }
-        });
+    @Override
+    public void onResponse(Call<List<Article>> call, Response<List<Article>> response) {
+        if (response.isSuccessful()) {
+            listView.setAdapter(new ArticleArrayAdapter(MainActivity.this, response.body()));
+        } else {
+            Toast.makeText(MainActivity.this, OOPS_ERROR_TOAST + response.code(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<List<Article>> call, Throwable t) {
+        Toast.makeText(MainActivity.this, OOPS_ERROR_TOAST + t.getMessage(), Toast.LENGTH_LONG).show();
+        Log.e(TAG, t.getMessage());
     }
 
     private void setupActionBar() {
@@ -96,4 +97,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(new Intent(this, DisplayArticleActivity.class)
                 .putExtra(ARTICLE_ATTRIBUTE, (Article) parent.getItemAtPosition(position)));
     }
+
 }
