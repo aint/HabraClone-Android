@@ -1,4 +1,4 @@
-package com.github.aint.habraclone.android.model
+package com.github.aint.habraclone.android.rest.model
 
 import java.io.Serializable
 

@@ -11,41 +11,29 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.github.aint.habraclone.android.adapter.ArticleArrayAdapter;
 import com.github.aint.habraclone.android.R;
-import com.github.aint.habraclone.android.model.Article;
-import com.github.aint.habraclone.android.service.HabraCloneService;
-import com.google.gson.Gson;
+import com.github.aint.habraclone.android.adapter.ArticleArrayAdapter;
+import com.github.aint.habraclone.android.rest.HabraCloneRestClient;
+import com.github.aint.habraclone.android.rest.model.Article;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.widget.AdapterView.*;
+import static android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends AppCompatActivity implements OnItemClickListener, Callback<List<Article>> {
 
     private static final String TAG = MainActivity.class.getName();
-
-    public static final String HABRA_CLONE_API_URL = "http://192.168.0.100:9090/api/";
 
     public static final String DATE_PATTERN = "dd.MM.yyyy hh:mm";
     public static final String ARTICLE_ATTRIBUTE = "article";
     public static final String USERNAME_ATTRIBUTE = "username";
 
     private static final String OOPS_ERROR_TOAST = "Oops... Error ";
-
-    private Retrofit retrofit = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(new Gson()))
-            .baseUrl(HABRA_CLONE_API_URL)
-            .build();
-
-    private HabraCloneService habraCloneService = retrofit.create(HabraCloneService.class);
 
     private ListView listView;
 
@@ -61,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     private void setUpListView() {
         listView = ((ListView) findViewById(R.id.article_list_view));
         listView.setOnItemClickListener(this);
-        habraCloneService.getTopArticles().enqueue(this);
+        HabraCloneRestClient.getInstance().getTopArticles().enqueue(this);
     }
 
     @Override

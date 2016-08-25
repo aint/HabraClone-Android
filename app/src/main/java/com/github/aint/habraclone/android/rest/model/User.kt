@@ -1,4 +1,4 @@
-package com.github.aint.habraclone.android.model
+package com.github.aint.habraclone.android.rest.model
 
 class User {
     var id: Long = 0

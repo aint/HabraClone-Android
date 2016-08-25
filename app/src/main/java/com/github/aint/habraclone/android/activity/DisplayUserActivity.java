@@ -8,20 +8,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aint.habraclone.android.R;
-import com.github.aint.habraclone.android.model.User;
-import com.github.aint.habraclone.android.service.HabraCloneService;
-import com.google.gson.Gson;
+import com.github.aint.habraclone.android.rest.HabraCloneRestClient;
+import com.github.aint.habraclone.android.rest.model.User;
 
 import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.github.aint.habraclone.android.activity.MainActivity.DATE_PATTERN;
-import static com.github.aint.habraclone.android.activity.MainActivity.HABRA_CLONE_API_URL;
+import static com.github.aint.habraclone.android.activity.MainActivity.USERNAME_ATTRIBUTE;
 
 public class DisplayUserActivity extends AppCompatActivity implements Callback<User> {
 
@@ -29,19 +26,12 @@ public class DisplayUserActivity extends AppCompatActivity implements Callback<U
 
     private static final String OOPS_ERROR_TOAST = "Oops... Error ";
 
-    private Retrofit retrofit = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(new Gson()))
-            .baseUrl(HABRA_CLONE_API_URL)
-            .build();
-
-    private HabraCloneService habraCloneService = retrofit.create(HabraCloneService.class);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user);
 
-        habraCloneService.getUser(getIntent().getStringExtra(MainActivity.USERNAME_ATTRIBUTE)).enqueue(this);
+        HabraCloneRestClient.getInstance().getUser(getIntent().getStringExtra(USERNAME_ATTRIBUTE)).enqueue(this);
     }
 
     @Override

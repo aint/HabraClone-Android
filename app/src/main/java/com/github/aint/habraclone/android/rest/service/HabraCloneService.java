@@ -1,8 +1,8 @@
-package com.github.aint.habraclone.android.service;
+package com.github.aint.habraclone.android.rest.service;
 
-import com.github.aint.habraclone.android.model.Article;
-import com.github.aint.habraclone.android.model.Comment;
-import com.github.aint.habraclone.android.model.User;
+import com.github.aint.habraclone.android.rest.model.Article;
+import com.github.aint.habraclone.android.rest.model.Comment;
+import com.github.aint.habraclone.android.rest.model.User;
 
 import java.util.List;
 

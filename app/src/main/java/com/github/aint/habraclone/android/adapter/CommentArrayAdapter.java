@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.github.aint.habraclone.android.R;
-import com.github.aint.habraclone.android.model.Comment;
+import com.github.aint.habraclone.android.rest.model.Comment;
 
 import java.util.Date;
 import java.util.List;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.github.aint.habraclone.android.R;
 import com.github.aint.habraclone.android.activity.DisplayCommentsActivity;
-import com.github.aint.habraclone.android.model.Article;
+import com.github.aint.habraclone.android.rest.model.Article;
 
 import java.util.Date;
 import java.util.List;
