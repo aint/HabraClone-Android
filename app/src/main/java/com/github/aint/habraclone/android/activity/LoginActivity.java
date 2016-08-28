@@ -9,7 +9,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.github.aint.habraclone.android.R;
-import com.github.aint.habraclone.android.app.Application;
+import com.github.aint.habraclone.android.app.App;
 import com.github.aint.habraclone.android.rest.HabraCloneRestClient;
 import com.github.aint.habraclone.android.rest.model.Token;
 import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Token> 
     public void onResponse(Call<Token> call, Response<Token> response) {
         showProgress(false);
         if (response.isSuccessful()) {
-            Application.setToken(response.body().getMessage());
+            App.setToken(response.body().getMessage());
             finish();
         } else if (response.code() == 400) {
             setUsernameError();

@@ -29,4 +29,7 @@ public interface HabraCloneService {
 
     @POST("authenticate")
     Call<Token> authenticate(@Query("username") String username, @Query("password") String password);
+
+    @POST("comments/add")
+    Call<Void> addComment(@Query("comment_body") String comment, @Query("article_id") Long articleId, @Query("token") String token);
 }

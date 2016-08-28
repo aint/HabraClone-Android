@@ -1,6 +1,6 @@
 package com.github.aint.habraclone.android.app;
 
-public class Application extends android.app.Application {
+public class App extends android.app.Application {
 
     private static String token = "";
 
@@ -13,6 +13,6 @@ public class Application extends android.app.Application {
     }
 
     public static void setToken(String token) {
-        Application.token = token;
+        App.token = token;
     }
 }

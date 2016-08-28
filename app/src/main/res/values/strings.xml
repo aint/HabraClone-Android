@@ -29,4 +29,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_authenticate_toast">Oops… Something went wrong.</string>
 
+    <string name="button_add_comment">Add comment</string>
+    <string name="title_add_comment">Comment</string>
+    <string name="hint_comment_text">Comment text</string>
+
 </resources>
